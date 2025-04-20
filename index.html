@@ -71,7 +71,7 @@
   <div class="content min-h-screen flex flex-col items-center justify-center p-6">
     <h1 class="minecraft-title mb-8 text-center">Shadow Fight</h1>
     <p class="text-2xl mb-6 text-center max-w-2xl">
-      Присоединяйся к нашему эпичному Minecraft-серверу! Исследуй , сражайся с боссами и строй шедевры вместе с друзьями!
+      Присоединяйся к нашему эпичному Minecraft-серверу! Исследуй, сражайся с боссами и строй шедевры вместе с друзьями!
     </p>
     <div class="flex space-x-4">
       <button class="minecraft-btn" onclick="copyIP()">Скопировать IP</button>
@@ -83,8 +83,12 @@
         <p>Создавай кланы и сражайся!</p>
       </div>
       <div class="feature-card text-center">
-        <h3 class="text-xl font-bold mb-2">Уникальные предеметы</h3>
+        <h3 class="text-xl font-bold mb-2">Уникальные предметы</h3>
         <p>На нашем сервере есть много уникальных предметов.</p>
+      </div>
+      <div class="feature-card text-center">
+        <h3 class="text-xl font-bold mb-2">PVP Арены</h3>
+        <p>Сражайся с игроками и стань чемпионом!</p>
       </div>
     </div>
   </div>
@@ -106,21 +110,18 @@
         this.baseX = this.x;
         this.baseY = this.y;
         this.size = Math.random() * 3 + 1;
-        this.speedX = Math.random() * 0.5 - 0.25; // Скорость для автономного движения
+        this.speedX = Math.random() * 0.5 - 0.25;
         this.speedY = Math.random() * 0.5 - 0.25;
         this.color = `rgba(${Math.random() * 50 + 150}, ${Math.random() * 50 + 50}, ${Math.random() * 50}, 0.8)`;
       }
 
       update() {
-        // Автономное движение частиц
         this.x += this.speedX;
         this.y += this.speedY;
 
-        // Ограничение движения в пределах canvas
         if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
         if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
 
-        // Реакция на курсор
         let dx = mouse.x - this.x;
         let dy = mouse.y - this.y;
         let distance = Math.sqrt(dx * dx + dy * dy);
