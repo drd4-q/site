@@ -1,0 +1,150 @@
+<!DOCTYPE html><html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>ShadowBattleground Mobile</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      font-family: 'Roboto', sans-serif;
+      background: #111;
+      color: #eee;
+      overflow-x: hidden;
+    }
+    #canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1rem;
+      text-align: center;
+    }
+    .logo {
+      font-size: 2.5rem;
+      font-weight: 700;
+      background: linear-gradient(90deg, #00ff99, #00ccff);
+      -webkit-background-clip: text;
+      color: transparent;
+      margin-top: 2rem;
+    }
+    .desc {
+      font-size: 1rem;
+      margin: 1rem 0 2rem;
+      color: #aaa;
+      max-width: 90%;
+    }
+    .btn-large {
+      width: 80%;
+      max-width: 300px;
+      padding: 0.75rem;
+      margin: 0.5rem 0;
+      font-size: 1.1rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: #111;
+      background: #00ff99;
+      border: 2px solid #00ff99;
+      border-radius: 6px;
+      transition: all 0.2s;
+    }
+    .btn-large:hover {
+      background: transparent;
+      color: #00ff99;
+      box-shadow: 0 0 8px #00ff99;
+    }
+    .features-mobile {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-top: 2rem;
+      width: 90%;
+    }
+    .feature {
+      background: #1a1a1a;
+      border-left: 4px solid #00ff99;
+      border-radius: 6px;
+      padding: 1rem;
+      text-align: left;
+    }
+    .feature h3 {
+      font-size: 1.2rem;
+      margin-bottom: 0.25rem;
+      color: #00ff99;
+    }
+    .feature p {
+      font-size: 0.9rem;
+      color: #ccc;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas"></canvas>
+  <div class="container">
+    <div class="logo">Shadow Battleground</div>
+    <div class="desc">Мобильная версия сайта! Присоединяйся к баталиям: собирай ресурсы, строй и побеждай!</div>
+    <button class="btn-large" onclick="copyIP()">Скопировать IP</button>
+    <button class="btn-large" onclick="window.open('https://discord.gg/your-discord', '_blank')">Discord</button><div class="features-mobile">
+  <div class="feature">
+    <h3>Кланы</h3>
+    <p>Объединяйся с друзьями и доминируй!</p>
+  </div>
+  <div class="feature">
+    <h3>Уникальные предметы</h3>
+    <p>Редкие дропы и бустеры в каждом матче.</p>
+  </div>
+  <div class="feature">
+    <h3>PVP Арены</h3>
+    <p>Сражайся на мини-аренах и докажи своё мастерство.</p>
+  </div>
+</div>
+
+  </div>  <script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    function resize() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resize);
+    resize();
+    const particles = [];
+    const count = 100;
+    class P { constructor() {
+        this.x = Math.random()*canvas.width;
+        this.y = Math.random()*canvas.height;
+        this.s = Math.random()*1.5+0.5;
+        this.dx = Math.random()*0.3-0.15;
+        this.dy = Math.random()*0.3-0.15;
+      }
+      upd() {
+        this.x += this.dx; this.y += this.dy;
+        if(this.x<0||this.x>canvas.width) this.dx*=-1;
+        if(this.y<0||this.y>canvas.height) this.dy*=-1;
+      }
+      draw() {
+        ctx.fillStyle = '#00ff99';
+        ctx.beginPath(); ctx.arc(this.x,this.y,this.s,0,2*Math.PI); ctx.fill();
+      }
+    }
+    for(let i=0;i<count;i++) particles.push(new P());
+    function anim() {
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      particles.forEach(p=>{p.upd();p.draw();});
+      requestAnimationFrame(anim);
+    }
+    anim();
+    function copyIP(){navigator.clipboard.writeText('shadowbattleground.enderman.cloud');alert('IP скопирован');}
+  </script></body>
+</html>
